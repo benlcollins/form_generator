@@ -2,9 +2,13 @@
 
 Form Generator Tool
 
-TO DO:
+DONE:
 Automatically generate a standard form
-Add options
+Format the date in the form heading
+
+TO DO:
+
+Add questions and headings to form
 Format the form
 Automatically create a Sheet and connect Form to collect responses
 Grab the form published URL
@@ -17,12 +21,23 @@ Daily drafts waiting alert
 Confirm emails sent alert
 
 
+[18-12-19 14:28:09:388 EST] Published URL: 
+https://docs.google.com/forms/d/e/1FAIpQLScPcpJgYxS-S2dCX7SLKzYJ6wUU9vA1aNrBP716WLvFJlZ_TQ/viewform
+
+[18-12-19 14:28:09:439 EST] Editor URL: 
+https://docs.google.com/forms/d/13MAthvSOUDBEtgPFnovIIskFehIsIr9cgdfLaPZyTNY/edit
+
  */
 
 
 function generateNewForm() {
+
+  var d = new Date();
+  var formattedDate = (d.getMonth() + 1) + '/' + d.getDate() + '/' +  d.getFullYear();
+  var formTitle = 'Product Feedback Form ' + formattedDate;
   
-  var form = FormApp.create('Product Feedback Form' + new Date());
+  /*
+  var form = FormApp.create(formTitle);
   
   // add item
   var item = form.addCheckboxItem();
@@ -50,9 +65,67 @@ function generateNewForm() {
     .setColumns(['Boring', 'So-so', 'Interesting']);
   
   // log the published URL
-  Logger.log('Published URL: ' + form.getPublishedUrl());
+  var publishedLink = form.getPublishedUrl();
+  Logger.log('Published URL: ' + publishedLink);
   
   // Log the editor url
-  Logger.log('Editor URL: ' + form.getEditUrl());
+  var editorLink = form.getEditUrl();
+  Logger.log('Editor URL: ' + editorLink);
+  */
+
+  // for testing
+  var publishedLink = 'https://docs.google.com/forms/d/e/1FAIpQLScPcpJgYxS-S2dCX7SLKzYJ6wUU9vA1aNrBP716WLvFJlZ_TQ/viewform';
+  var editorLink = 'https://docs.google.com/forms/d/13MAthvSOUDBEtgPFnovIIskFehIsIr9cgdfLaPZyTNY/edit';
+
+  var responsesLink = 'TBC';
+
+  emailLinks(formTitle,publishedLink,editorLink,responsesLink);
+
   
 }
+
+
+// function to email the urls to me
+function emailLinks(formTitle,publishedLink,editorLink,reponsesLink) {
+
+  var htmlBody = 
+        'Here are the links for the new Form:<br><br>' +
+          'Published Form URL: ' + publishedLink + '<br><br>' +
+            'Form Editor URL: ' + editorLink + '<br><br>' +
+              'Responses Sheet URL: ' + reponsesLink;
+  
+  GmailApp.sendEmail(
+    'ben@benlcollins.com',
+    'URLs for Form: ' + formTitle,
+    '',
+    {
+      htmlBody: htmlBody
+    }
+  );
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
