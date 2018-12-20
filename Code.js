@@ -36,6 +36,10 @@ function generateNewForm() {
   var formattedDate = (d.getMonth() + 1) + '/' + d.getDate() + '/' +  d.getFullYear();
   var formTitle = 'Product Feedback Form ' + formattedDate;
   
+
+  /*
+  Create Form
+  */
   /*
   var form = FormApp.create(formTitle);
   
@@ -64,21 +68,39 @@ function generateNewForm() {
     .setRows(['Cars', 'Computers', 'Celebrities'])
     .setColumns(['Boring', 'So-so', 'Interesting']);
   
-  // log the published URL
-  var publishedLink = form.getPublishedUrl();
-  Logger.log('Published URL: ' + publishedLink);
-  
-  // Log the editor url
-  var editorLink = form.getEditUrl();
-  Logger.log('Editor URL: ' + editorLink);
   */
 
-  // for testing
-  var publishedLink = 'https://docs.google.com/forms/d/e/1FAIpQLScPcpJgYxS-S2dCX7SLKzYJ6wUU9vA1aNrBP716WLvFJlZ_TQ/viewform';
-  var editorLink = 'https://docs.google.com/forms/d/13MAthvSOUDBEtgPFnovIIskFehIsIr9cgdfLaPZyTNY/edit';
+  
+  // Get the published URL
+  //var publishedLink = form.getPublishedUrl();
+  var publishedLink = 'https://docs.google.com/forms/d/e/1FAIpQLScPcpJgYxS-S2dCX7SLKzYJ6wUU9vA1aNrBP716WLvFJlZ_TQ/viewform'; // for testing
+  Logger.log('Published URL: ' + publishedLink);
+  
+  // Get the editor url
+  //var editorLink = form.getEditUrl();
+  var editorLink = 'https://docs.google.com/forms/d/13MAthvSOUDBEtgPFnovIIskFehIsIr9cgdfLaPZyTNY/edit'; // for testing
+  Logger.log('Editor URL: ' + editorLink);
+  
+  
+  /*
+  Create responses Sheet
+  */
+  // create new sheet
+  var ssNew = SpreadsheetApp.create(formTitle + ' (Responses)');
 
-  var responsesLink = 'TBC';
+  // link to the form
+  var form = FormApp.openByUrl(editorLink); // for testing
+  form.setDestination(FormApp.DestinationType.SPREADSHEET, ssNew.getId());
 
+  // Get the Sheet responses link
+  var responsesLink = ssNew.getUrl();
+  //var responsesLink = 'TBC';
+  Logger.log(responsesLink);
+  
+
+  /*
+  Email relevant links to owner
+  */
   emailLinks(formTitle,publishedLink,editorLink,responsesLink);
 
   
