@@ -40,7 +40,7 @@ function generateNewForm() {
   /*
   Create Form
   */
-  /*
+  
   var form = FormApp.create(formTitle);
   
   // add item
@@ -68,17 +68,17 @@ function generateNewForm() {
     .setRows(['Cars', 'Computers', 'Celebrities'])
     .setColumns(['Boring', 'So-so', 'Interesting']);
   
-  */
+  
 
   
   // Get the published URL
-  //var publishedLink = form.getPublishedUrl();
-  var publishedLink = 'https://docs.google.com/forms/d/e/1FAIpQLScPcpJgYxS-S2dCX7SLKzYJ6wUU9vA1aNrBP716WLvFJlZ_TQ/viewform'; // for testing
+  var publishedLink = form.getPublishedUrl();
+  //var publishedLink = 'https://docs.google.com/forms/d/e/1FAIpQLScPcpJgYxS-S2dCX7SLKzYJ6wUU9vA1aNrBP716WLvFJlZ_TQ/viewform'; // for testing
   Logger.log('Published URL: ' + publishedLink);
   
   // Get the editor url
-  //var editorLink = form.getEditUrl();
-  var editorLink = 'https://docs.google.com/forms/d/13MAthvSOUDBEtgPFnovIIskFehIsIr9cgdfLaPZyTNY/edit'; // for testing
+  var editorLink = form.getEditUrl();
+  //var editorLink = 'https://docs.google.com/forms/d/13MAthvSOUDBEtgPFnovIIskFehIsIr9cgdfLaPZyTNY/edit'; // for testing
   Logger.log('Editor URL: ' + editorLink);
   
   
@@ -89,7 +89,7 @@ function generateNewForm() {
   var ssNew = SpreadsheetApp.create(formTitle + ' (Responses)');
 
   // link to the form
-  var form = FormApp.openByUrl(editorLink); // for testing
+  //var form = FormApp.openByUrl(editorLink); // for testing
   form.setDestination(FormApp.DestinationType.SPREADSHEET, ssNew.getId());
 
   // Get the Sheet responses link
